@@ -204,3 +204,13 @@ body.dark-mode .btn-close {
     height: auto;
     border-radius: 15px;
 }
+
+.hero-wrapper {
+    border-radius: 80px;
+    overflow: hidden; 
+}
+
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
