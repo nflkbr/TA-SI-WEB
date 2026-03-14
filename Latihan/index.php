@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["user"])) {
+    header("Location:login.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +17,9 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand" href="#">LUXCAR</a>
-
             <button
                 class="navbar-toggler"
                 type="button"
@@ -27,6 +33,9 @@
                     Wishlist (<span id="wishlist-count">0</span>)
                 </button>
             <button id="btn-theme" class="btn btn-outline-light btn-sm"> Dark Mode</button>
+            <a href="controller/logout.php" class="btn btn-danger btn-sm">
+                Logout
+            </a>
         </div>
     </nav>
 
