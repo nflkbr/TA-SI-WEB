@@ -1,0 +1,125 @@
+{{-- Ganti php session_start() + cek session manual --}}
+@if (!session('user'))
+    {{ redirect('/login') }}
+@endif
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Premium Car Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    {{-- Ganti href="css/style.css" --}}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">LUXCAR</a>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <button class="btn btn-outline-warning btn-sm me-2"
+                    data-bs-toggle="modal" data-bs-target="#wishlistModal">
+                    Wishlist (<span id="wishlist-count">0</span>)
+                </button>
+                <button id="btn-theme" class="btn btn-outline-light btn-sm">Dark Mode</button>
+                
+                {{-- Ganti href="controller/logout.php" --}}
+                <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="my-5">
+        <div class="hero-wrapper container">
+            {{-- Ganti src="asset/..." dengan asset() helper --}}
+            <img src="{{ asset('assets/BMW M4 GT3.jpg') }}" alt="BMW M4 GT3" class="img-fluid hero-img">
+        </div>
+    </section>
+
+    <main class="container mb-5">
+        <h2 class="text-center mb-4">Catalog Our Premium Cars</h2>
+        <div class="row g-4" id="catalog-mobil">
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="{{ asset('assets/BMW 1.webp') }}" class="card-img-top" alt="BMW M4">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW M4</h5>
+                        <p class="card-text">Offering modern looks, speed, and luxury in one premium package.</p>
+                        <p class="card-text harga-text">Harga: $ 140000</p>
+                        <p class="card-text stok-text">Stok: 10</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-detail w-50 me-2">Beli Sekarang</button>
+                            <button class="btn btn-outline-danger btn-wishlist w-50">Tambah Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="{{ asset('assets/BMW 2.webp') }}" class="card-img-top" alt="BMW M4 Variant">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW M4 Competition</h5>
+                        <p class="card-text">Engineered for performance with aggressive styling and precision handling.</p>
+                        <p class="card-text harga-text">Harga: $ 200000</p>
+                        <p class="card-text stok-text">Stok: 100</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-detail w-50 me-2">Beli Sekarang</button>
+                            <button class="btn btn-outline-danger btn-wishlist w-50">Tambah Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img src="{{ asset('assets/BMW 3.webp') }}" class="card-img-top" alt="BMW M4 Sport">
+                    <div class="card-body">
+                        <h5 class="card-title">BMW M4 Sport</h5>
+                        <p class="card-text">A perfect balance between comfort, sport, and executive presence.</p>
+                        <p class="card-text harga-text">Harga: $ 3429000</p>
+                        <p class="card-text stok-text">Stok: 80</p>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary btn-detail w-50 me-2">Beli Sekarang</button>
+                            <button class="btn btn-outline-danger btn-wishlist w-50">Tambah Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="modal fade" id="wishlistModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">My Wishlist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="wishlist-list" class="list-group"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-5">
+        <div class="container">
+            <h3>LUXCAR</h3>
+            <p>Create Your Happiness & Drive Your Dream</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- Ganti src="js/script.js" --}}
+    <script src="{{ asset('js/script.js') }}"></script>
+</body>
+</html>
