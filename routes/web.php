@@ -2,24 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ProductController;
 
-// Halaman Utama
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+// ── Auth ───────────────────────────────────────────────────────────────────
+Route::get('/login',    [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login',   [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout',  [AuthController::class, 'logout'])->name('logout');
 
-// Halaman Login
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+// ── Register ───────────────────────────────────────────────────────────────
+Route::get('/register',  [RegisterController::class, 'showRegister'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-// Proses Form Login & Logout
-Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// ── Google OAuth ───────────────────────────────────────────────────────────
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
 
-// Halaman Produk
-Route::get('/products', [ProductController::class, 'index'])->name('products');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-// Route untuk Update Produk
-Route::put ('/products/{id}', [ProductController::class, 'update' ] )->name('products.update');
-// Route untuk Hapus Produk
-Route::delete ('/products/{id}', [ProductController::class, 'destroy' ])->name ('products.destroy');
+// ── Protected Routes ───────────────────────────────────────────────────────
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('index');
+    })->name('home');
+
+    Route::resource('products', ProductController::class)->names([
+        'index'   => 'products',
+        'store'   => 'products.store',
+        'update'  => 'products.update',
+        'destroy' => 'products.destroy',
+    ]);
+});
